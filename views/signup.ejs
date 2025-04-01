@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="/firebase.js" ></script>
+    <style>
+        /* Style for hiding and showing forms */
+        .form-container {
+          display: none;
+        }
+        .active-form {
+          display: block;
+        }
+
+      </style>
+</head>
+<body>
+    <h1>Signup / Signin</h1>
+  
+    <!-- Tabs to switch between forms -->
+    <div class="tabs">
+      <button id="signinTab" class="active" onclick="showForm('signin')">Signin</button>
+      <button id="signupTab" onclick="showForm('signup')">Signup</button>
+    </div>
+  
+    <!-- Signup Form -->
+    <div id="signupForm" class="form-container ">
+      <h2>Signup</h2>
+      <form>
+      
+        <input type="email" id="email1" placeholder="Email" required><br>
+        <input type="password" id="password1" placeholder="Password" required><br>
+        <button type="submit" id="submit1">Signup</button>
+      </form>
+    </div>
+  
+    <!-- Signin Form -->
+    <div id="signinForm" class="form-container active-form">
+      <h2>Signin</h2>
+      <form>
+       
+        <input type="email" id="email2" placeholder="Email" required><br>
+      
+        <input type="password" id="password2" placeholder="Password" required><br>
+        <button type="submit" id="submit2">Signin</button>
+      </form>
+    </div>
+  
+    <script>
+      // JavaScript to switch between forms
+      function showForm(formType) {
+        const signinForm = document.getElementById('signinForm');
+        const signupForm = document.getElementById('signupForm');
+        const signinTab = document.getElementById('signinTab');
+        const signupTab = document.getElementById('signupTab');
+        signinForm.classList.remove('active-form');
+      signupForm.classList.remove('active-form');
+
+        if (formType === 'signin') {
+          signinForm.classList.add('active-form');
+          signupForm.classList.remove('active-form');
+          signinTab.classList.add('active');
+          signupTab.classList.remove('active');
+        } else if (formType === 'signup') {
+          signupForm.classList.add('active-form');
+          signinForm.classList.remove('active-form');
+          signupTab.classList.add('active');
+          signinTab.classList.remove('active');
+        }
+      }
+      
+    
+    </script>
+  </body>
+
+</html>

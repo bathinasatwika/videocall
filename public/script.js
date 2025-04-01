@@ -74,16 +74,7 @@ function micfunc(){
     track.enabled = ismicon;
   });
   let micBtn = document.getElementById("mictoggle");
- 
-  let micIcon = micBtn.querySelector("i");
-    
-  if (micIcon.classList.contains("fa-microphone")) {
-      micIcon.classList.replace("fa-microphone", "fa-microphone-slash");
-      micBtn.style.backgroundColor = "#ea4335"; // Red when muted
-  } else {
-      micIcon.classList.replace("fa-microphone-slash", "fa-microphone");
-      micBtn.style.backgroundColor = "#3c4043"; // Default color
-  }
+ micBtn.innerText= ismicon? "mute":"unmute";
 }
 
 //videotoggle
@@ -95,15 +86,7 @@ function videofunc(){
     track.enabled = isvideoon;
   });
   let videoBtn = document.getElementById("videotoggle");
-  let videoIcon = videoBtn.querySelector("i");
-
-  if (videoIcon.classList.contains("fa-video")) {
-      videoIcon.classList.replace("fa-video", "fa-video-slash");
-      videoBtn.style.backgroundColor = "#ea4335"; // Red when video is off
-  } else {
-      videoIcon.classList.replace("fa-video-slash", "fa-video");
-      videoBtn.style.backgroundColor = "#3c4043"; // Default color
-  }
+  videoBtn.innerText= isvideoon?"videooff":"videoon";
 }
 
 

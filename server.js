@@ -1,28 +1,56 @@
+//importing express library to handle http requests, socket connctions, signaling the servers
 const express = require('express');
-const { rmSync } = require('fs');
-const http = require('http');
-const { Server } = require('socket.io');
-
+// to create an instance of express
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+
 const { v4: uuidV4 } = require('uuid')
 
+//creating a connection btwn user and server until they disconnect from server
+const http = require('http');
+const { Server } = require('socket.io');
+const server = http.createServer(app);
+const io = new Server(server);
 
+//only for input types in the form in html other components like button grid are not accessed from here 
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({ extended: true })); // Middleware to parse form data
+
+//to render html pages and also allows dynamic variable like ROOM-ID where as html is static
 app.set('view engine', 'ejs')
+//as we r using script.js in frontend i have to serve it in server side and later can use it in frontend
+// and also serve the files in public folder
 app.use(express.static('public'))
 
-app.get('/', (req, res) => {
-  res.redirect(`/${uuidV4()}`)
-})
+app.get('/newurl',(req,res)=>{
+    res.redirect(`${uuidV4()}`)
+});
+
+app.post('/joinurl',(req,res)=>{
+  const roomurl=req.body.roomurl;
+  res.redirect(roomurl);
+});
+
+app.get('/signup',(req,res)=>{
+  res.render('signup');
+});
+
+app.get('/signedin',(req,res)=>{
+  res.render('rooms');
+});
+
 app.get('/end',(req,res)=>{
   res.render('end');
+})
+app.get('/', (req, res) => {
+  res.render('signup');
 })
 
 app.get('/:room', (req, res) => {
   res.render('room', { roomId: req.params.room })
 })
 
+//event is triggered when we connect client and server using sockets
 io.on('connection', socket => {
   
   socket.on('join-room', (roomId, userId) => {
@@ -38,8 +66,26 @@ io.on('connection', socket => {
     socket.on('disconnect', (userId) => {
       socket.to(roomId).emit('user-disconnected', userId)
 
-   })
+   }) 
   })
-})
+});
 
+
+//http requests are listening on port 4000
 server.listen(4000);
+
+             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
