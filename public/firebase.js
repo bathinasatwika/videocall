@@ -58,7 +58,6 @@ submit2.addEventListener('click', function(event){
       .then((userCredential) => {
         window.location.replace("/signedin");
         const user = userCredential.user;
-       
       })
       .catch((error) => {
         const errorCode = error.code;
