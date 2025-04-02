@@ -11,7 +11,7 @@ const { Server } = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server);
 
-//only for input types in the form in html other components like button grid are not accessed from here 
+//to access input values in the form it is used
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({ extended: true })); // Middleware to parse form data
@@ -60,15 +60,15 @@ io.on('connection', socket => {
     //broadcast.emit means sends everyone in other rooms as well except sender
     socket.to(roomId).emit('user-connected', userId)
 
-    socket.on('disconnect-user', (userId) => {
+    socket.on('disconnect-user', () => {
        socket.to(roomId).emit('user-disconnected', userId)
     })
-    socket.on('disconnect', (userId) => {
-      socket.to(roomId).emit('user-disconnected', userId)
-
+    socket.on('disconnect', () => {
+      console.log(userId);
+      socket.to(roomId).emit('user-disconnected', userId);
    }) 
   })
-});
+} );
 
 
 //http requests are listening on port 4000
@@ -86,6 +86,6 @@ server.listen(4000);
 
 
 
-
+//when there is a form with get or post method we need button type submit inside form to trigger the method in server side
 
 

@@ -4,34 +4,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
   <script>
     const ROOM_ID = "<%= roomId %>"
   </script>
+  
   <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
   <script src="/socket.io/socket.io.js" defer></script>
   <script src="script.js" defer></script>
-  <title>Document</title>
+  
+  <title>Video Call Room</title>
   <style>
+    /* General Styles */
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      font-family: Arial, sans-serif;
+    }
+
+    /* Video Grid */
     #video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, 300px);
-      grid-auto-rows: 300px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 10px;
+      width: 90%;
+      max-width: 1000px;
+      margin-bottom: 20px;
     }
-    
+
     video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease-in-out;
+      outline: none;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #disconnecting {
+      background-color: #ff4c4c;
+    }
+
+    #disconnecting:hover {
+      background-color: #c0392b;
     }
   </style>
 </head>
 <body>
+  
   <div id="video-grid"></div> 
-  <button id="mictoggle" onClick="micfunc()">mute </button>
-  <button id="videotoggle" onClick="videofunc()"> video off </button>
 
-  <button id="disconnecting">End Call</button>
+  <!-- Video Call Controls -->
+  <div class="controls">
+    <button id="mictoggle" onClick="micfunc()">Mute</button>
+    <button id="videotoggle" onClick="videofunc()">Video Off</button>
+    <button id="disconnecting">End Call</button>
+  </div>
 
-  <button id="streamtoggle" onClick="streamfunc()">screen share</button>
 </body>
 </html>

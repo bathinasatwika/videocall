@@ -1,3 +1,4 @@
+// to create a connection btwn client and server and en
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 //creating a new peer id for new user
@@ -30,7 +31,8 @@ navigator.mediaDevices.getUserMedia({
 
   socket.on('user-connected', userId => {
     connectToNewUser(userId,stream)
-  })
+  });
+
 })
 
 //when a new peerid is created this event is triggered
@@ -50,7 +52,7 @@ function connectToNewUser(userId, stream) {
   const video = document.createElement('video')
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream, userId);
-  })
+  });
 
   peers[userId] = call
 }
@@ -74,7 +76,7 @@ function micfunc(){
     track.enabled = ismicon;
   });
   let micBtn = document.getElementById("mictoggle");
- micBtn.innerText= ismicon? "mute":"unmute";
+ micBtn.innerText= ismicon? "Mute":"Unmute";
 }
 
 //videotoggle
@@ -86,7 +88,7 @@ function videofunc(){
     track.enabled = isvideoon;
   });
   let videoBtn = document.getElementById("videotoggle");
-  videoBtn.innerText= isvideoon?"videooff":"videoon";
+  videoBtn.innerText= isvideoon?"Video off":"Video on";
 }
 
 
@@ -111,11 +113,4 @@ document.getElementById("disconnecting").addEventListener("click",function (){
  });
 
 
- //screenshare
-let screenshare=null;
-function screenfunc(){
-  navigator.mediaDevices.getDisplayMedia({video:true, audio:true}).then( stream => {
-screenshare=stream;
-
-  });
-}
+ 
